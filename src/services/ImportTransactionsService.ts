@@ -19,8 +19,6 @@ class ImportTransactionsService {
     const transactionsRepository = getCustomRepository(TransactionsRepository);
     const categoriesRepository = getRepository(Category);
 
-    console.log(filePath);
-
     const contactsReadStream = fs.createReadStream(filePath);
 
     const parsers = csvParse({
@@ -80,7 +78,6 @@ class ImportTransactionsService {
       })),
     );
 
-    console.log(createdTransactions);
     await transactionsRepository.save(createdTransactions);
 
     await fs.promises.unlink(filePath);
